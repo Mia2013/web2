@@ -50,7 +50,7 @@ function DrawerAppBar(props) {
                 <Link
                   onClick={handleDrawerToggle}
                   activeClass="active"
-                  to={page.to}
+                  to={page.path}
                   spy={true}
                   smooth={true}
                   offset={-70}

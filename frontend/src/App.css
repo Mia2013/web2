@@ -3,14 +3,13 @@
   --swiper-theme-color: #a97142 !important;
 }
 
-
-
 .MuiFab-root:hover,
 .MuiFab-root:focus,
 .MuiFab-root:active {
   background-color: #a97142 !important;
   color: #2a2c2d !important;
 }
+
 
 @media only screen and (max-width: 899px) {
   .App{
@@ -24,4 +23,8 @@
 .active {
   border: #1e8449 solid 0.5px;
   border-radius: 50%;
+}
+
+#link{
+  text-decoration: none;
 }

@@ -7,28 +7,26 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { Link } from "react-scroll";
+
 import MenuIcon from "@mui/icons-material/Menu";
+import { Link } from "react-router-dom";
 
 import DrawerAppBar from "./Drawer";
 
 const ResponsiveAppBar = ({ pages }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState(null);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleSetActiveSection = (sectionId) => {
-    setActiveSection(sectionId);
-  };
+
 
   return (
     <AppBar
       sx={{ background: "#1E1F20", boxShadow: "0 4px 4px rgba(0, 0, 0, 0.4)" }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Box
           sx={{
             display: { xs: "none", md: "flex" },
@@ -65,13 +63,9 @@ const ResponsiveAppBar = ({ pages }) => {
           >
             {pages.map((page) => (
               <Link
-                to={page.to}
-                spy={true}
-                smooth={true}
-                offset={-50}
-                duration={400}
+                to={page.path}
                 key={page.name}
-                onSetActive={handleSetActiveSection}
+                id="link"
               >
                 <Button
                   key={page.name}
@@ -83,7 +77,6 @@ const ResponsiveAppBar = ({ pages }) => {
                     mx: 1,
                     
                   }}
-                  className={page.to === `#${activeSection}` ? "active" : ""}
 
                 >
                   {page.name}
