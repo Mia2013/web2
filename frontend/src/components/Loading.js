@@ -1,23 +1,21 @@
-import { Typography, Grid } from "@mui/material";
-import ClipLoader from "react-spinners/ClipLoader";
+import { Typography, Box } from "@mui/material";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 export default function Loading() {
   return (
-    <Grid
-      container
-      spacing={0}
+    <Box
       sx={{
         height: "100vh",
-        textAlign: "center",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        gap: 2,
+        textAlign: "center",
       }}
     >
-      <Grid item>
-        <ClipLoader variant="h2" color="#a97142" size={40} />
-        <Typography variant="h3">Betöltés...</Typography>
-      </Grid>
-    </Grid>
+      <PacmanLoader variant="h2" color="#a97142" size={40} />
+      <Typography variant="h3">Betöltés...</Typography>
+    </Box>
   );
 }

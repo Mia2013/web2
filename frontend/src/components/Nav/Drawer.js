@@ -9,12 +9,12 @@ import {
   ListItemButton,
   Typography,
 } from "@mui/material";
-import { Link } from "react-scroll";
+import { Link } from "react-router-dom";
 
-const drawerWidth = "80%";
+const drawerWidth = "50%";
 
 function DrawerAppBar(props) {
-  const { window, pages, handleDrawerToggle, mobileOpen } = props;
+  const { window, pagesForPublic, handleDrawerToggle, mobileOpen } = props;
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -37,28 +37,29 @@ function DrawerAppBar(props) {
       </Typography>
       <Divider />
       <List>
-        {pages.map((page) => (
+        {pagesForPublic.map((page) => (
           <ListItem key={`${page.name}drawer`} disablePadding>
             <ListItemButton >
-              <Button
-                sx={{
-                  my: 2,
-                  mx: "auto",
-                  display: "block",
-                }}
+
+              <Link
+                to={page.path}
+                id="drawer-link"
               >
-                <Link
+                <Button
+                  key={page.name}
+                  sx={{
+                    display: "block",
+                    fontFamily: "Exo 2, sans-serif",
+                    fontSize: "1rem",
+                    fontWeight: "bolder",
+                    width: '100%'
+                  }}
                   onClick={handleDrawerToggle}
-                  activeClass="active"
-                  to={page.path}
-                  spy={true}
-                  smooth={true}
-                  offset={-70}
-                  duration={500}
+
                 >
                   {page.name}
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </ListItemButton>
           </ListItem>
         ))}

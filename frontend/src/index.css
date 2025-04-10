@@ -5,3 +5,43 @@ body {
 
 }
 
+:root {
+  --color: #a97142;
+  --swiper-theme-color: #a97142 !important;
+}
+
+.MuiFab-root:hover,
+.MuiFab-root:focus,
+.MuiFab-root:active {
+  background-color: #a97142 !important;
+  color: #2a2c2d !important;
+}
+
+
+@media only screen and (max-width: 899px) {
+  .App{
+    max-width: 100% !important;
+    overflow-x: hidden;
+  }
+  
+}
+
+
+#link{
+  text-decoration: none;
+}
+
+#cart-icon{
+  cursor: pointer;
+}
+
+#footer {
+  border-top: #a97142 2px solid;
+  background-color: #2a2c2d !important;
+}
+
+#drawer-link{
+  text-decoration: none;
+  width: 100%;
+  text-align: center;
+}

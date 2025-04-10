@@ -1,7 +1,7 @@
 import { Typography, Box } from "@mui/material";
 import { Divider } from "@mui/material";
 
-export default function PageTitle({ title, id }) {
+export default function PageTitle({ title }) {
   return (
     <Box
       sx={{

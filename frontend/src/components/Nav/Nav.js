@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 import DrawerAppBar from "./Drawer";
 
-const ResponsiveAppBar = ({ pages }) => {
+const ResponsiveAppBar = ({ pagesForPublic }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -61,7 +61,7 @@ const ResponsiveAppBar = ({ pages }) => {
               alignItems: "center",
             }}
           >
-            {pages.map((page) => (
+            {pagesForPublic.map((page) => (
               <Link
                 to={page.path}
                 key={page.name}
@@ -87,7 +87,7 @@ const ResponsiveAppBar = ({ pages }) => {
           </Box>
         </Box>
         <DrawerAppBar
-          pages={pages}
+          pagesForPublic={pagesForPublic}
           handleDrawerToggle={handleDrawerToggle}
           mobileOpen={mobileOpen}
         />{" "}
