@@ -23,7 +23,7 @@ const loginService = {
 
         const token = jwt.sign(
             {
-                userId: user._id,
+                userid: user.id,
                 username: user.username,
             },
             "szuperTitkosKulcsATokenhez"

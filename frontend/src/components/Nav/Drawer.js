@@ -13,8 +13,7 @@ import { Link } from "react-router-dom";
 
 const drawerWidth = "50%";
 
-function DrawerAppBar(props) {
-  const { window, pagesForPublic, handleDrawerToggle, mobileOpen } = props;
+function DrawerAppBar({ handleDrawerToggle, mobileOpen, pages }) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -37,7 +36,7 @@ function DrawerAppBar(props) {
       </Typography>
       <Divider />
       <List>
-        {pagesForPublic.map((page) => (
+        {pages.map((page) => (
           <ListItem key={`${page.name}drawer`} disablePadding>
             <ListItemButton >
 
@@ -67,13 +66,10 @@ function DrawerAppBar(props) {
     </Box>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box component="nav">
       <Drawer
-        container={container}
+        container={document.body}
         variant="temporary"
         open={mobileOpen}
         onClose={handleDrawerToggle}

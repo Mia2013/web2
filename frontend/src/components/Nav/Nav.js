@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AppBar,
   Button,
@@ -6,21 +6,30 @@ import {
   Box,
   IconButton,
   Typography,
+  Tooltip
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
+
 
 import DrawerAppBar from "./Drawer";
+import { pagesForAuthenticatedOnly, pagesForPublic } from "../../pages/pages";
+import { useAuth } from "../../provider/AuthProvider";
 
-const ResponsiveAppBar = ({ pagesForPublic }) => {
+const ResponsiveAppBar = () => {
+  const { token, logOut } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [pages, setPages] = useState([]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-
+  useEffect(() => {
+    setPages(token ? [...pagesForPublic, ...pagesForAuthenticatedOnly] : [...pagesForPublic])
+  }, [token])
 
   return (
     <AppBar
@@ -38,7 +47,7 @@ const ResponsiveAppBar = ({ pagesForPublic }) => {
           <Typography
             className="logo"
             component="a"
-            href="/"
+            href="/" 
             sx={{
               display: { xs: "none", md: "flex" },
               flexDirection: "row",
@@ -61,35 +70,44 @@ const ResponsiveAppBar = ({ pagesForPublic }) => {
               alignItems: "center",
             }}
           >
-            {pagesForPublic.map((page) => (
+            {pages.map((page) => (
               <Link
                 to={page.path}
                 key={page.name}
                 id="link"
               >
-                <Button
-                  key={page.name}
-                  sx={{
-                    display: "block",
-                    fontFamily: "Exo 2, sans-serif",
-                    fontSize: "1rem",
-                    fontWeight: "bolder",
-                    mx: 1,
-                    
-                  }}
+                <Tooltip title={page.name}>
+                  <Button
+                    key={page.name}
+                    sx={{
+                      display: "block",
+                      fontFamily: "Exo 2, sans-serif",
+                      fontSize: "1rem",
+                      fontWeight: "bolder",
+                    }}
+                  >
+                    {page.icon || page.name}
+                  </Button>
+                </Tooltip>
 
-                >
-                  {page.name}
-                </Button>
-           
               </Link>
             ))}
+            {token &&
+              <Tooltip title="Kijelentkezés">
+                <IconButton
+                  size="large"
+                  onClick={logOut}
+                >
+                  <LogoutIcon />
+                </IconButton>
+              </Tooltip>
+            }
           </Box>
         </Box>
         <DrawerAppBar
-          pagesForPublic={pagesForPublic}
           handleDrawerToggle={handleDrawerToggle}
           mobileOpen={mobileOpen}
+          pages={pages}
         />{" "}
       </Container>
       <Box

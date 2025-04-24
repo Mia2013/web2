@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import AuthProvider from "./provider/AuthProvider";
+import CartProvider from './provider/CartItemsProvider';
 
 import { BrowserRouter } from "react-router-dom";
 import {
@@ -38,7 +39,9 @@ root.render(
     <React.StrictMode>
       <BrowserRouter>
         <AuthProvider>
-          <App />
+          <CartProvider >
+            <App />
+          </CartProvider>
         </AuthProvider>
       </BrowserRouter>
     </React.StrictMode>

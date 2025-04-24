@@ -12,7 +12,7 @@ const Form = ({ title, formType = "register" }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [alert, setAlert] = useState('');
-  const auth = useAuth();
+  const {logIn} = useAuth();
 
   const userNameRef = useRef();
   const passwordRef = useRef();
@@ -34,7 +34,11 @@ const Form = ({ title, formType = "register" }) => {
             setAlert({ message: `${username} felhasználó sikeresen hozzáadva! `, severity: "success" })
           } else {
             setAlert({ message: `${username} felhasználó sikeresen bejelentkezve! `, severity: "success" })
-            auth.logIn(data)          }
+            logIn(data)          }
+        })
+        .then(()=>{
+          userNameRef.current.value = "";
+          passwordRef.current.value = "";
         })
         .catch((e) => {
           setAlert({ message: e.message || "Hiba történt!", severity: "error" })

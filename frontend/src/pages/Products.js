@@ -7,11 +7,11 @@ import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 
 import { getData } from '../API/apiCalls';
 import CustomAlert from "../components/CustomAlert"
+import { useCart } from "../provider/CartItemsProvider";
 
 export default function Products() {
+  const { getCartItems, cartItems, addCartItems, alert, setAlert } = useCart();
   const [wines, setWines] = useState([]);
-  const [alert, setAlert] = useState([]);
-
 
   useEffect(() => {
     getWines();
@@ -51,6 +51,17 @@ export default function Products() {
   }
 
 
+
+  const addToCart = (item) => {
+    const data = {
+      wineId: item.id,
+      quantity: item.quantity
+    }
+    addCartItems(data);
+  }
+
+
+
   return (
     <Container maxWidth="lg" >
       <Grid container sx={{ flexWrap: "wrap", mt: 5, mb: 10 }}>
@@ -77,41 +88,62 @@ export default function Products() {
             data-aos="zoom-in"
           ></Typography>
         </Grid>
-        <Grid
-         size={12}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          {wines.map((item) => (
-            <Box key={item.name} sx={{ my: 3, display: 'flex', justifyContent: "space-between" }}>
-              <div>
-                <Typography
-                  variant="h3"
-                  sx={{
-                    fontFamily: "Italianno, cursive",
-                  }}
-                  data-aos="fade-right"
-                >
-                  {" "}
-                  {item.name}
-                </Typography>
-                <Typography variant="subtitle1" data-aos="fade-left">
-                  {" "}
-                  {item.description}
-                </Typography>
-              </div>
-              <Box sx={{ display: "flex", justifyContent: "cwenter", alignItems: "center", gap: 1 }}>
+        {wines.map((item) => (
+          <>
+            <Grid
+              size={{ xs: 12, sm: 5 }}
+
+              sx={{ my: 3 }}
+            >
+              <Typography
+                variant="h3"
+                sx={{
+                  fontFamily: "Italianno, cursive",
+                }}
+                data-aos="fade-right"
+              >
+                {" "}
+                {item.name}
+              </Typography>
+              <Typography variant="subtitle1" data-aos="fade-left">
+                {" "}
+                {item.description}
+              </Typography>
+
+            </Grid>
+
+            <Grid
+              size={{ xs: 4, sm: 3 }}
+              sx={{ my: "auto" }}
+            >
+              <Typography
+                variant="h3"
+                sx={{
+                  fontFamily: "Italianno, cursive",
+                  textAlign: "right"
+                }}
+                data-aos="fade-right"
+              >                {" "}
+                {item.price} Ft
+              </Typography>
+
+            </Grid>
+
+            <Grid
+              size={{ xs: 8, sm: 4 }}
+              sx={{ my: "auto" }}
+
+            >
+              <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 1 }}>
                 <DoDisturbOnIcon onClick={() => handleDecreaseQuantity(item.id)} fontSize="large" id="cart-icon" />
                 <Typography variant="body1" sx={{ fontWeight: "bolder" }} >{item.quantity}</Typography>
                 <AddCircleIcon onClick={() => handleIncreaseQuantity(item.id)} fontSize="large" id="cart-icon" />
-                <ShoppingBasketIcon sx={{ ml: 3 }} fontSize="large" id="cart-icon" />
+                <ShoppingBasketIcon onClick={() => addToCart(item)} sx={{ ml: 3 }} fontSize="large" id="cart-icon" />
               </Box>
-            </Box>
-          ))}
-        </Grid>
+            </Grid>
+
+          </>
+        ))}
       </Grid>
       <CustomAlert alert={alert} setAlert={setAlert} />
     </Container>

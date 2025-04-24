@@ -10,11 +10,10 @@ import ResponsiveAppBar from "./components/Nav/Nav";
 import Loading from "./components/Loading";
 import { pagesForPublic, pagesForAuthenticatedOnly } from "./pages/pages";
 import { Footer } from "./components/Footer";
-import { useAuth } from "./provider/AuthProvider";
-
 
 function App() {
-  const auth = useAuth();
+
+  const pages = [...pagesForAuthenticatedOnly, ...pagesForPublic];
 
   useEffect(() => {
     AOS.init({
@@ -27,25 +26,17 @@ function App() {
     });
     AOS.refresh();
   }, []);
-
   
   return (
       <div className="App">
         <CssBaseline />
         <Toolbar id="back-to-top-anchor" />
-        <ResponsiveAppBar pagesForPublic={pagesForPublic} />
+        <ResponsiveAppBar />
         <Suspense fallback={<Loading />}>
           <Routes>
-            {pagesForPublic.map((page) => (
+            {pages.map((page) => (
               <Route key={page.name} path={page.path} element={page.component} />
-            ))}
-            
-       
-                {pagesForAuthenticatedOnly.map((page) => (
-                  <Route key={page.name} path={page.path} element={page.component} />
-                ))}
-              
-            
+            ))}     
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
           <BackToTop />
