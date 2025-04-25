@@ -8,11 +8,9 @@ import {
   Typography,
   Tooltip
 } from "@mui/material";
-
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
-
 
 import DrawerAppBar from "./Drawer";
 import { pagesForAuthenticatedOnly, pagesForPublic } from "../../pages/pages";
@@ -47,7 +45,7 @@ const ResponsiveAppBar = () => {
           <Typography
             className="logo"
             component="a"
-            href="/" 
+            href="/"
             sx={{
               display: { xs: "none", md: "flex" },
               flexDirection: "row",

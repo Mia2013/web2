@@ -1,10 +1,9 @@
 import React from "react";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { IconButton } from "@mui/material";
 import Badge, { badgeClasses } from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 
-import { useCart } from "../provider/CartItemsProvider";
+import { useWebshop } from "../provider/WebshopProvider";
 
 const CartBadge = styled(Badge)`
   & .${badgeClasses.badge} {
@@ -14,15 +13,13 @@ const CartBadge = styled(Badge)`
 `;
 
 const CartIconButton = () => {
-    const { badgeContent } = useCart();
+  const { badgeContent } = useWebshop();
 
-    return (
-        <IconButton>
-            <CartBadge badgeContent={badgeContent} color="primary" overlap="circular">
-                <ShoppingCartIcon fontSize="small" />
-            </CartBadge>
-        </IconButton>
-    );
+  return (
+    <CartBadge badgeContent={badgeContent} color="primary" overlap="circular">
+      <ShoppingCartIcon fontSize="small" />
+    </CartBadge>
+  );
 };
 
 export default CartIconButton;

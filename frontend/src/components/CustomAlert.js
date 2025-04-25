@@ -3,7 +3,6 @@ import React from 'react';
 
 
 const CustomAlert = ({ alert, setAlert }) => {
-
     const handleClose = () => {
         setAlert(false);
     };

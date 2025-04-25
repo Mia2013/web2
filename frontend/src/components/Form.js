@@ -99,7 +99,6 @@ const Form = ({ title, formType = "register" }) => {
           </Grid>
 
           <Grid size={12} sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-
             <TextField
               label="Felhasználónév"
               inputRef={userNameRef}

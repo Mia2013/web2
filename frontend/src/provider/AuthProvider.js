@@ -1,4 +1,6 @@
 import { useContext, createContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { instance } from "../API/apiCalls";
 
 
@@ -6,6 +8,8 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(localStorage.getItem("bpince") || "");
+    const navigate = useNavigate();
+
 
     const logIn = (res) => {
         setToken(res.token);
@@ -17,6 +21,7 @@ const AuthProvider = ({ children }) => {
         setToken("");
         localStorage.removeItem("bpince");
         delete instance.defaults.headers.Authorization;
+        navigate("/");
     };
 
     return (

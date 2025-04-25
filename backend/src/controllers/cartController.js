@@ -23,7 +23,7 @@ const cartController = {
 
   deleteFromCart: async (req, res) => {
     try {
-      const data = await cartService.deleteFromCart(req.params);
+      const data = await cartService.deleteFromCart(req.userid, req.query.cartItemId);
       res.json(data);
     } catch (error) {
       console.error(error);

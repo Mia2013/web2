@@ -1,9 +1,17 @@
-import React from 'react'
+import * as React from 'react';
+import { Container, } from '@mui/material';
+import UserData from '../components/UserData';
+import PageTitle from '../components/PageTitle';
+import Purchases from '../components/Purchases';
 
 const Profile = () => {
   return (
-    <div>Profile</div>
-  )
+    <Container maxWidth="lg" sx={{ minHeight: "90vh", my: 10 }}>
+      <PageTitle title="Profil" />
+      <UserData />
+      <Purchases />
+    </Container>
+  );
 }
 
 export default Profile;

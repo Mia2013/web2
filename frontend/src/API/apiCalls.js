@@ -1,6 +1,6 @@
 import axios from "axios";
 
- export const instance = axios.create({
+export const instance = axios.create({
     baseURL: "http://localhost:8080",
     headers: {
         "Content-Type": "application/json",
@@ -49,9 +49,9 @@ export const putData = async (endpoint, data) => {
 };
 
 
-export const deleteData = async (endpoint, data) => {
+export const deleteData = async (endpoint, query) => {
     try {
-        const result = await instance.delete(endpoint, data);
+        const result = await instance.delete(`/${endpoint}`, { params: query });
         return result.data;
     } catch (error) {
         const errorMessage = error.response?.data?.message || error.message;

@@ -7,6 +7,7 @@ import registerController from './controllers/registerController.js';
 import loginController from './controllers/loginController.js';
 import authorization from './middlewares/authorization.js';
 import cartController from './controllers/cartController.js';
+import purchaseController from './controllers/purchaseController.js';
 
 const app = express();
 const port = 8080;
@@ -17,16 +18,14 @@ app.use(loggerMiddleware);
 
 app.get('/images', imageController.getImages);
 app.get('/wines', wineController.getWines);
-
 app.post('/register', registerController.registerUser);
 app.post('/login', loginController.loginUser);
 
 app.get('/cart', authorization, cartController.getCart);
 app.post('/cart', authorization, cartController.addToCart);
 app.delete('/cart', authorization, cartController.deleteFromCart);
-app.post('/buyCart', authorization, cartController.buyCart);
-
-
+app.get('/buyCart', authorization, cartController.buyCart);
+app.get('/purchases', authorization, purchaseController.getPurchases);
 
 app.listen(port, () => {
   console.log(`Szerver fut: http://localhost:${port}`);

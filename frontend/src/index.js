@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import AuthProvider from "./provider/AuthProvider";
-import CartProvider from './provider/CartItemsProvider';
+import WebshopProvider from './provider/WebshopProvider';
 
 import { BrowserRouter } from "react-router-dom";
 import {
@@ -28,7 +28,8 @@ theme = createTheme(theme, {
       main: '#a97142',
     },
     background: {
-      default: "#1E1F20"
+      default: "#1E1F20",
+      paper: "#2A2B2D",
     }
   },
 });
@@ -39,9 +40,9 @@ root.render(
     <React.StrictMode>
       <BrowserRouter>
         <AuthProvider>
-          <CartProvider >
+          <WebshopProvider >
             <App />
-          </CartProvider>
+          </WebshopProvider>
         </AuthProvider>
       </BrowserRouter>
     </React.StrictMode>

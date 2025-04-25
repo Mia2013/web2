@@ -1,27 +1,27 @@
 import { dbAll, dbGet, dbRun } from '../utils/db.js';
+const defaultCartStatus = "pending";
 
 const cartService = {
     getCart: async (userId) => {
         const sql = `
             SELECT 
+                CART.id AS cartItem_id,
                 WINES.id AS wine_id,
                 WINES.name,
                 WINES.description,
                 WINES.price,
-                SUM(CART.quantity) AS quantity
+                CART.quantity
             FROM CART
             JOIN WINES ON CART.wine_id = WINES.id
-            WHERE CART.user_id = ?
-            GROUP BY WINES.id, WINES.name, WINES.description, WINES.price;
+            WHERE CART.user_id = ? AND CART.status = ?;
         `;
-        return await dbAll(sql, [userId]);
+        return await dbAll(sql, [userId, defaultCartStatus]);
     },
-
 
     addToCart: async (userId, reqBody) => {
         const { wineId, quantity } = reqBody;
-        if (!wineId) {
-            throw new Error('Nem található termék azonosító');
+        if (!wineId || !quantity) {
+            throw new Error('Hiányzó adat');
         }
 
         const wine = await dbGet('SELECT * FROM WINES WHERE id = ?', [wineId]);
@@ -29,30 +29,36 @@ const cartService = {
             throw new Error('A termék nem létezik');
         }
 
-        const sql = `
-        INSERT INTO CART (user_id, wine_id, quantity)
-        VALUES (?, ?, ?);
-    `;
-        await dbRun(sql, [userId, wineId, quantity]);
+        const existing = await dbGet(
+            'SELECT * FROM CART WHERE user_id = ? AND wine_id = ? AND status = ?',
+            [userId, wineId, defaultCartStatus]
+        );
 
-        return { message: 'Termék hozzáadva a kosárhoz' };
+        if (existing) {
+            await dbRun(
+                'UPDATE CART SET quantity = quantity + ? WHERE id = ?',
+                [quantity, existing.id]
+            );
+        } else {
+            await dbRun(
+                'INSERT INTO CART (user_id, wine_id, quantity, status) VALUES (?, ?, ?, ?)',
+                [userId, wineId, quantity, defaultCartStatus]
+            );
+        }
+
+        return await cartService.getCart(userId);
     },
 
-    // Termék törlése a kosárból
-    deleteFromCart: async (reqParams) => {
-        const { cartItemId } = reqParams;
+    deleteFromCart: async (userId, cartItemId) => {
         if (!cartItemId) {
             throw new Error('Nem található rendelés azonosító');
         }
 
-        const sql = `DELETE FROM CART WHERE id = ?;
-    `;
-        await dbRun(sql, [cartItemId]);
+        await dbRun('DELETE FROM CART WHERE id = ?', [cartItemId]);
 
-        return { message: 'Termék törölve a kosárból' };
+        return await cartService.getCart(userId);
     },
 
-    // Kosár fizetése
     buyCart: async (userId) => {
         if (!userId) {
             throw new Error('Nem található felhasználó');
@@ -60,7 +66,7 @@ const cartService = {
 
         const pendingCart = await dbAll(
             'SELECT CART.*, WINES.name AS wine_name, WINES.price AS wine_price FROM CART JOIN WINES ON CART.wine_id = WINES.id WHERE CART.user_id = ? AND CART.status = ?',
-            [userId, 'pending']
+            [userId, defaultCartStatus]
         );
 
         if (!pendingCart.length) {
@@ -73,16 +79,14 @@ const cartService = {
         const winesSummary = pendingCart
             .map(item => {
                 totalPrice += item.wine_price * item.quantity;
-                const line = `${item.wine_name}: ${item.quantity} db`;
-                return line;
+                return `${item.wine_name}: ${item.quantity} db`;
             })
             .join(', ');
 
-        // Lementjük a vásárlást
         const insertPurchaseSql = `
-      INSERT INTO PURCHASES (user_id, price, wines, paid_date)
-      VALUES (?, ?, ?, ?, ?);
-    `;
+            INSERT INTO PURCHASES (user_id, price, wines, paid_date)
+            VALUES (?, ?, ?, ?);
+        `;
 
         await dbRun(insertPurchaseSql, [
             userId,
@@ -91,19 +95,16 @@ const cartService = {
             paidDate,
         ]);
 
-        // Frissítjük a kosár elemeit 'paid' státuszra
         await dbRun(
             'UPDATE CART SET status = ? WHERE user_id = ? AND status = ?',
-            ['paid', userId, 'pending']
+            ['paid', userId, defaultCartStatus]
         );
 
         return {
             message: 'Vásárlás sikeres',
-            totalPrice,
-            winesSummary,
+
         };
     }
-
 };
 
 export default cartService;

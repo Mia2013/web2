@@ -8,12 +8,16 @@ import {
   ListItem,
   ListItemButton,
   Typography,
+  Tooltip
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useAuth } from "../../provider/AuthProvider";
 
 const drawerWidth = "50%";
 
 function DrawerAppBar({ handleDrawerToggle, mobileOpen, pages }) {
+  const { token, logOut } = useAuth();
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -38,11 +42,14 @@ function DrawerAppBar({ handleDrawerToggle, mobileOpen, pages }) {
       <List>
         {pages.map((page) => (
           <ListItem key={`${page.name}drawer`} disablePadding>
-            <ListItemButton >
+            <ListItemButton sx={{ justifyContent: 'center' }}>
 
               <Link
                 to={page.path}
                 id="drawer-link"
+                style={{
+                  textDecoration: 'none', width: '100%',
+                }}
               >
                 <Button
                   key={page.name}
@@ -51,10 +58,11 @@ function DrawerAppBar({ handleDrawerToggle, mobileOpen, pages }) {
                     fontFamily: "Exo 2, sans-serif",
                     fontSize: "1rem",
                     fontWeight: "bolder",
-                    width: '100%'
+                    textAlign: 'center',
+                    width: '100%',
+
                   }}
                   onClick={handleDrawerToggle}
-
                 >
                   {page.name}
                 </Button>
@@ -62,8 +70,20 @@ function DrawerAppBar({ handleDrawerToggle, mobileOpen, pages }) {
             </ListItemButton>
           </ListItem>
         ))}
+        {token &&
+          <ListItem>
+            <Tooltip title="Kijelentkezés">
+              <ListItemButton sx={{ justifyContent: 'center' }}
+                onClick={logOut}
+              >
+                <LogoutIcon />
+              </ListItemButton>
+            </Tooltip>
+          </ListItem>
+
+        }
       </List>
-    </Box>
+    </Box >
   );
 
   return (

@@ -3,11 +3,11 @@ import React from 'react'
 
 export const Footer = () => {
     return (
-        <Box >
-            <BottomNavigation id="footer" >
+        <Box>
+            <BottomNavigation>
                 <Divider />
                 <Box sx={{ my: 2 }}>
-                    <Typography variant='h6' sx={{ textAlign: "center"  }}> © Copyright Budavári Pince</Typography>
+                    <Typography variant='h6' sx={{ textAlign: "center" }}> © Copyright Budavári Pince</Typography>
                 </Box>
             </BottomNavigation>
         </Box>

@@ -10,8 +10,12 @@ import ResponsiveAppBar from "./components/Nav/Nav";
 import Loading from "./components/Loading";
 import { pagesForPublic, pagesForAuthenticatedOnly } from "./pages/pages";
 import { Footer } from "./components/Footer";
+import { useAuth } from "./provider/AuthProvider"
+import { useWebshop } from "./provider/WebshopProvider";
 
 function App() {
+  const { token } = useAuth();
+  const { getCartItems } = useWebshop();
 
   const pages = [...pagesForAuthenticatedOnly, ...pagesForPublic];
 
@@ -26,23 +30,30 @@ function App() {
     });
     AOS.refresh();
   }, []);
-  
+
+  useEffect(() => {
+    if (token) {
+      getCartItems();
+    }
+    // eslint-disable-next-line
+  }, [token])
+
   return (
-      <div className="App">
-        <CssBaseline />
-        <Toolbar id="back-to-top-anchor" />
-        <ResponsiveAppBar />
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            {pages.map((page) => (
-              <Route key={page.name} path={page.path} element={page.component} />
-            ))}     
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-          <BackToTop />
-        </Suspense>
-        <Footer />
-      </div>
+    <div className="App">
+      <CssBaseline />
+      <Toolbar id="back-to-top-anchor" />
+      <ResponsiveAppBar />
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          {pages.map((page) => (
+            <Route key={page.name} path={page.path} element={page.component} />
+          ))}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        <BackToTop />
+      </Suspense>
+      <Footer />
+    </div>
 
   );
 }

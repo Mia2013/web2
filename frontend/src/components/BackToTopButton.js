@@ -24,7 +24,6 @@ function ScrollTop(props) {
         block: "center",
         behavior: "smooth",
         inline: "nearest",
-
       });
     }
   };
