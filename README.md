@@ -44,7 +44,7 @@ A kliens oldal React keretrendzserrel épült, amely lehetővé teszi a komponen
 - jwt-decode - a JWT token dekódolásához
 
 ## Frontend struktúra
-A src mappában helyezkednek el a frontend kódfájlok, az alábbi elrendezésben
+Az src mappában helyezkednek el a frontend kódfájlok, az alábbi elrendezésben
 - API
   Ide kerülnek a szerverrel való kommunikációért felelős fájlok.
 
@@ -77,14 +77,14 @@ A szerver oldal Nodejs platformra épült, az npm csomagok közül pedig az alá
 - cors - a kliens és a szerver közötti kommunikáció engedélyezéséhez különböző domainek között
 
 ## Backend struktúra
-- index.js  
+- index
   Ide érkeznek be az API hívások, minden requestnél lefut egy logger middleware, amely logolja az eseményeket (Dátum és idő, HTTP metódus és URL). 
   Az autentikációt igénylő végpontok előtt authorization middleware ellenőrzi a felhasználó tokenjét. 
   A hívások ezután a megfelelő controller réteghez kerülnek továbbításra.
 
 - middlewares
-  logger.js – Naplózza az összes bejövő kérést.
-  authorization.js – Ellenőrzi a kérésekben kapott jwt-t.
+  logger: Naplózza az összes bejövő kérést.
+  authorization: Ellenőrzi a kérésekben kapott jwt-t.
 
 - controllers
   A controllerek kezelik a bejövő API-hívásokat, és a válaszokat adják vissza a kliensnek.
