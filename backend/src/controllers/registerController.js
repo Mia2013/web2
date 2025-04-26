@@ -1,7 +1,7 @@
 import registerService from '../services/registerService.js';
 
- const registerController = {
-    registerUser :async (req, res) => {
+const registerController = {
+  registerUser: async (req, res) => {
     try {
       const data = await registerService.addUser(req);
       res.json(data);

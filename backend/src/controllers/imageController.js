@@ -1,7 +1,7 @@
 import imageService from '../services/imageService.js';
 
- const imageController = {
-  getImages :async (req, res) => {
+const imageController = {
+  getImages: async (req, res) => {
     try {
       const data = await imageService.getAllImages();
       res.json(data);

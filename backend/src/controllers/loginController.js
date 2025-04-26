@@ -1,7 +1,7 @@
 import loginService from '../services/loginService.js';
 
- const loginController = {
-    loginUser :async (req, res) => {
+const loginController = {
+  loginUser: async (req, res) => {
     try {
       const data = await loginService.verifyUser(req);
       res.json(data);

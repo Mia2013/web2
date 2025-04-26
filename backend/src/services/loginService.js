@@ -20,7 +20,6 @@ const loginService = {
             throw new Error('Nem megfelelő felhasználónév vagy jelszó!');
         }
 
-
         const token = jwt.sign(
             {
                 userid: user.id,

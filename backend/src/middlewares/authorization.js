@@ -14,7 +14,6 @@ export default (req, res, next) => {
     }
 
     const verifiedUser = jwt.verify(userToken, "szuperTitkosKulcsATokenhez");
-
     req.userid = verifiedUser.userid;
     
     return next();

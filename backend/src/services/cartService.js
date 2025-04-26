@@ -15,7 +15,8 @@ const cartService = {
             JOIN WINES ON CART.wine_id = WINES.id
             WHERE CART.user_id = ? AND CART.status = ?;
         `;
-        return await dbAll(sql, [userId, defaultCartStatus]);
+        const cartItems = await dbAll(sql, [userId, defaultCartStatus])
+        return cartItems;
     },
 
     addToCart: async (userId, reqBody) => {
@@ -45,18 +46,17 @@ const cartService = {
                 [userId, wineId, quantity, defaultCartStatus]
             );
         }
-
-        return await cartService.getCart(userId);
+        const cartItems = await cartService.getCart(userId);
+        return cartItems;
     },
 
     deleteFromCart: async (userId, cartItemId) => {
         if (!cartItemId) {
             throw new Error('Nem található rendelés azonosító');
         }
-
         await dbRun('DELETE FROM CART WHERE id = ?', [cartItemId]);
-
-        return await cartService.getCart(userId);
+        const cartItems = await cartService.getCart(userId);
+        return cartItems;
     },
 
     buyCart: async (userId) => {
@@ -65,7 +65,12 @@ const cartService = {
         }
 
         const pendingCart = await dbAll(
-            'SELECT CART.*, WINES.name AS wine_name, WINES.price AS wine_price FROM CART JOIN WINES ON CART.wine_id = WINES.id WHERE CART.user_id = ? AND CART.status = ?',
+            `SELECT 
+               CART.*, 
+               WINES.name AS wine_name, 
+               WINES.price AS wine_price 
+            FROM CART JOIN WINES ON CART.wine_id = WINES.id 
+            WHERE CART.user_id = ? AND CART.status = ?`,
             [userId, defaultCartStatus]
         );
 
