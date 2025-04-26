@@ -12,7 +12,7 @@ const Form = ({ title, formType = "register" }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [alert, setAlert] = useState('');
-  const {logIn} = useAuth();
+  const { logIn } = useAuth();
 
   const userNameRef = useRef();
   const passwordRef = useRef();
@@ -34,9 +34,10 @@ const Form = ({ title, formType = "register" }) => {
             setAlert({ message: `${username} felhasználó sikeresen hozzáadva! `, severity: "success" })
           } else {
             setAlert({ message: `${username} felhasználó sikeresen bejelentkezve! `, severity: "success" })
-            logIn(data)          }
+            logIn(data)
+          }
         })
-        .then(()=>{
+        .then(() => {
           userNameRef.current.value = "";
           passwordRef.current.value = "";
         })

@@ -14,7 +14,6 @@ const CartBadge = styled(Badge)`
 
 const CartIconButton = () => {
   const { badgeContent } = useWebshop();
-
   return (
     <CartBadge badgeContent={badgeContent} color="primary" overlap="circular">
       <ShoppingCartIcon fontSize="small" />

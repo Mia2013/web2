@@ -18,9 +18,7 @@ const Purchases = () => {
         // eslint-disable-next-line
     }, []);
 
-    const sortedPurchases = [...purchases].sort(
-        (a, b) => new Date(b.paid_date) - new Date(a.paid_date)
-    );
+    const sortedPurchases = [...purchases].sort((a, b) => new Date(b.paid_date) - new Date(a.paid_date));
 
     return (
         <Container maxWidth="lg" sx={{ my: 10 }} >

@@ -24,7 +24,6 @@ const Cart = () => {
         // eslint-disable-next-line
     }, [])
 
-
     return (
         <Container maxWidth="lg" sx={{ minHeight: "90vh" }}>
             <Grid container sx={{ flexWrap: "wrap", mt: 5, mb: 10 }}>
@@ -41,8 +40,7 @@ const Cart = () => {
                         }}
                     >
                         {cartItems?.map((item) => (
-                            <CartItem item={item} key={item.name + "cart"} data-aos="fade-right"
-                            />
+                            <CartItem item={item} key={item.name + "cart"} data-aos="fade-right" />
                         ))}
 
                         <Divider />

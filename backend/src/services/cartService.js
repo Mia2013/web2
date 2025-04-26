@@ -3,8 +3,8 @@ const defaultCartStatus = "pending";
 
 const cartService = {
     getCart: async (userId) => {
-        const sql = `
-            SELECT 
+        const sql =
+            `SELECT 
                 CART.id AS cartItem_id,
                 WINES.id AS wine_id,
                 WINES.name,
@@ -13,8 +13,7 @@ const cartService = {
                 CART.quantity
             FROM CART
             JOIN WINES ON CART.wine_id = WINES.id
-            WHERE CART.user_id = ? AND CART.status = ?;
-        `;
+            WHERE CART.user_id = ? AND CART.status = ?;`;
         const cartItems = await dbAll(sql, [userId, defaultCartStatus])
         return cartItems;
     },
@@ -58,7 +57,7 @@ const cartService = {
         const cartItems = await cartService.getCart(userId);
         return cartItems;
     },
-
+    
     buyCart: async (userId) => {
         if (!userId) {
             throw new Error('Nem található felhasználó');
@@ -88,10 +87,7 @@ const cartService = {
             })
             .join(', ');
 
-        const insertPurchaseSql = `
-            INSERT INTO PURCHASES (user_id, price, wines, paid_date)
-            VALUES (?, ?, ?, ?);
-        `;
+        const insertPurchaseSql = 'INSERT INTO PURCHASES (user_id, price, wines, paid_date)VALUES (?, ?, ?, ?)';
 
         await dbRun(insertPurchaseSql, [
             userId,

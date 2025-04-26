@@ -10,17 +10,16 @@ export default function AutoplaySlideshow({ images }) {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const swiperHeight = windowHeight > 600 ? windowHeight : 600;
 
+  const handleResize = () => {
+    setWindowHeight(window.innerHeight);
+  }
+
+  const delayedResize = () => {
+    setTimeout(handleResize, 2500);
+  }
+
   useEffect(() => {
-    function handleResize() {
-      setWindowHeight(window.innerHeight);
-    }
-
-    function delayedResize() {
-      setTimeout(handleResize, 2500);
-    }
-
     window.addEventListener("resize", delayedResize);
-
     return () => {
       window.removeEventListener("resize", delayedResize);
     };

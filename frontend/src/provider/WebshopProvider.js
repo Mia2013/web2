@@ -10,20 +10,6 @@ const WebshopProvider = ({ children }) => {
     const [purchases, setPurchases] = useState([]);
     const [wines, setWines] = useState([]);
 
-
-    const getWines = async () => {
-        getData("wines").then(reqData => {
-            const wines_ = reqData.map((wine => {
-                return {
-                    ...wine,
-                    quantity: 1
-                }
-            }))
-            setWines(wines_)
-        }).catch((e) =>
-            setAlert({ message: "Hiba történt a kérés közben!", severity: "error" }))
-    }
-
     const formatPrice = (price) => {
         return new Intl.NumberFormat('hu-HU', {
             useGrouping: true,
@@ -40,6 +26,21 @@ const WebshopProvider = ({ children }) => {
         setCartItems([]);
         setAmountOfAllCart(0);
         setBadgeContent(0);
+    }
+
+    const getWines = async () => {
+        getData("wines")
+            .then(reqData => {
+                const wines_ = reqData.map((wine => {
+                    return {
+                        ...wine,
+                        quantity: 1
+                    }
+                }))
+                setWines(wines_)
+            })
+            .catch((e) =>
+                setAlert({ message: "Hiba történt a kérés közben!", severity: "error" }))
     }
 
     const getCartItems = async () => {

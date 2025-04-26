@@ -1,11 +1,8 @@
 import { Alert, Snackbar } from '@mui/material';
 import React from 'react';
 
-
 const CustomAlert = ({ alert, setAlert }) => {
-    const handleClose = () => {
-        setAlert(false);
-    };
+    const handleClose = () => setAlert(false);
 
     return (
         <Snackbar open={!!alert.message} autoHideDuration={3000} onClose={handleClose}>

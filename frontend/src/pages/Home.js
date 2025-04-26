@@ -22,15 +22,15 @@ export default function Home() {
   }, [])
 
   const getImages = async () => {
-    getData("images").then(resData => {
-      const imgs = resData.map((img => {
-        return {
-          src: `${process.env.PUBLIC_URL}/pic/${img.name}.jpg`, position: img.position
-        }
-      }))
-      setImages(imgs)
-    }).catch((e) =>
-      setAlert({ message: "Hiba történt az oldal betöltése közben!", severity: "error" }))
+    getData("images")
+      .then(resData => {
+        const imgs = resData.map((img => {
+          return { src: `${process.env.PUBLIC_URL}/pic/${img.name}.jpg`, position: img.position }
+        }))
+        setImages(imgs)
+      })
+      .catch((e) =>
+        setAlert({ message: "Hiba történt a képek betöltése közben!", severity: "error" }))
   }
 
   const handleTabChange = (e, newValue) => {

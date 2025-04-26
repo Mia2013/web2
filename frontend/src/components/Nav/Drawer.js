@@ -43,7 +43,6 @@ function DrawerAppBar({ handleDrawerToggle, mobileOpen, pages }) {
         {pages.map((page) => (
           <ListItem key={`${page.name}drawer`} disablePadding>
             <ListItemButton sx={{ justifyContent: 'center' }}>
-
               <Link
                 to={page.path}
                 id="drawer-link"
@@ -59,8 +58,7 @@ function DrawerAppBar({ handleDrawerToggle, mobileOpen, pages }) {
                     fontSize: "1rem",
                     fontWeight: "bolder",
                     textAlign: 'center',
-                    width: '100%',
-
+                    width: '100%'
                   }}
                   onClick={handleDrawerToggle}
                 >

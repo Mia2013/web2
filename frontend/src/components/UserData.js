@@ -16,9 +16,7 @@ const UserData = () => {
     const decodedToken = jwtDecode(token);
 
     const username = decodedToken.username || "Felhasználó";
-    const registered = decodedToken.iat
-        ? new Date(decodedToken.iat * 1000).toLocaleDateString()
-        : "Ismeretlen";
+    const loggedInDate = new Date(decodedToken?.iat * 1000).toLocaleDateString();
 
     return (
         <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -34,7 +32,7 @@ const UserData = () => {
                 <Box>
                     <Typography variant="h6">Felhasználónév: {username}</Typography>
                     <Typography variant="body1" sx={{ opacity: 0.6, my: 1 }}>
-                        Regisztráció: {registered}
+                        Bejelentkezve: {loggedInDate}
                     </Typography>
                 </Box>
             </Stack>
