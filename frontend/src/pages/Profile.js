@@ -6,7 +6,7 @@ import Purchases from '../components/Purchases';
 
 const Profile = () => {
   return (
-    <Container maxWidth="lg" sx={{ minHeight: "90vh", my: 10 }}>
+    <Container maxWidth="lg" sx={{ minHeight: "70vh", my: 10 }}>
       <PageTitle title="Profil" />
       <UserData />
       <Purchases />

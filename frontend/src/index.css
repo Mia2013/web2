@@ -26,6 +26,10 @@ body {
 
 }
 
+#link {
+  text-decoration: none;
+}
+
 #cart-icon {
   cursor: pointer;
 }

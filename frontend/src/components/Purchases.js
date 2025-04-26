@@ -23,7 +23,7 @@ const Purchases = () => {
     );
 
     return (
-        <Container maxWidth="lg" sx={{ minHeight: "90vh", my: 10 }} >
+        <Container maxWidth="lg" sx={{ my: 10 }} >
             <Typography variant="h4" sx={{ mb: 4, color: "primary.main" }} data-aos="fade-up">
                 Megrendelések
             </Typography>

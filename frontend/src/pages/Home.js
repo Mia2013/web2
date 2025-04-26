@@ -11,25 +11,26 @@ import Form from "../components/Form";
 import { useAuth } from "../provider/AuthProvider";
 
 export default function Home() {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState([{ src: `${process.env.PUBLIC_URL}/pic/home.jpg`, position: "center" }]);
   const [alert, setAlert] = useState([]);
-  const [tabValue, setTabValue] = useState('1');
+  const [tabValue, setTabValue] = useState('2');
   const { token } = useAuth();
+
 
   useEffect(() => {
     getImages();
   }, [])
 
   const getImages = async () => {
-    getData("images").then(reqData => {
-      const imgs = reqData.map((img => {
+    getData("images").then(resData => {
+      const imgs = resData.map((img => {
         return {
           src: `${process.env.PUBLIC_URL}/pic/${img.name}.jpg`, position: img.position
         }
       }))
       setImages(imgs)
     }).catch((e) =>
-      setAlert({ message: "Hiba történt a kérés közben!", severity: "error" }))
+      setAlert({ message: "Hiba történt az oldal betöltése közben!", severity: "error" }))
   }
 
   const handleTabChange = (e, newValue) => {
@@ -72,22 +73,22 @@ export default function Home() {
             <TabContext value={tabValue}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <TabList onChange={handleTabChange} aria-label="lab API tabs example" centered>
-                  <Tab label="Regisztráció" value="1" />
-                  <Tab label="Bejelentkezés" value="2" />
+                  <Tab label={<span style={{ color: '#a97142' }}>Regisztráció</span>} value="1" />
+                  <Tab label={<span style={{ color: '#a97142' }}>Bejelentkezés</span>} value="2" />
                 </TabList>
               </Box>
               <TabPanel value="1">
                 <Typography sx={{ textAlign: "center", my: 2 }}>Váráslás előtt kérem regisztráljon. Amennyiben már regisztrált felhasználó jelentkezzen be </Typography>
                 <Form title="Regisztráció" formType="register" />
               </TabPanel>
-              <TabPanel value="2"><Form title="Bejelentkezés" formType="login" />
+              <TabPanel value="2">
+                <Form title="Bejelentkezés" formType="login" />
               </TabPanel>
             </TabContext>
           </Grid>
         }
       </Container>
       <CustomAlert alert={alert} setAlert={setAlert} />
-
     </Grid>
   );
 }
