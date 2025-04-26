@@ -82,6 +82,7 @@ const Cart = () => {
                                 }
                             }}
                             onClick={buyCart}
+                            data-aos="fade-up"
                         >Megrendelés</Button>
                     </Grid>
                     ) : (<Grid><Typography>A kosár jelenleg üres....</Typography></Grid>)

@@ -121,7 +121,6 @@ const ResponsiveAppBar = () => {
       >
         <IconButton
           size="large"
-          aria-label="hamburger-menu"
           aria-controls="menu-appbar"
           aria-haspopup="true"
           onClick={handleDrawerToggle}

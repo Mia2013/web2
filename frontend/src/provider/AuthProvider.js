@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
     const logIn = (res) => {
         setToken(res.token);
         localStorage.setItem("bpince", res.token);
-        instance.headers.Authorization = `Bearer ${res.token}`
+        instance.defaults.headers.common["Authorization"] = `Bearer ${res.token}`;
     }
 
     const logOut = () => {

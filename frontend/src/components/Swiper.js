@@ -23,6 +23,7 @@ export default function AutoplaySlideshow({ images }) {
     return () => {
       window.removeEventListener("resize", delayedResize);
     };
+    // eslint-disable-next-line
   }, []);
 
   return (

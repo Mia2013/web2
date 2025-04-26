@@ -13,9 +13,11 @@ import {
 import './index.css';
 import App from './App';
 
+console.warn = () => { };
+console.error = () => { };
+
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
-
 theme = createTheme(theme, {
   palette: {
     text: {
@@ -33,6 +35,7 @@ theme = createTheme(theme, {
     }
   },
 });
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

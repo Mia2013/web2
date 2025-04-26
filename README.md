@@ -26,7 +26,7 @@ A szerver a következő címen indul: http://localhost:8080 .
 ## Frontend - Vásárlási folyamat
 
 1. Regisztráció (Főoldal)
-2. Bejelentkezés (Főoldal)
+2. Bejelentkezés (Főoldal) Az adatbázisban van regisztrált felhasználó, a bejelentkezési adatai: felhasználónév: 1234, jelszó: 1234
 3. Termékek kosárba helyezése ("Boraink" oldal)
 4. Kosár megtekintése (Kosár oldal)
 5. Megrendelés leadása (Kosár oldal)

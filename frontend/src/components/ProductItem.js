@@ -77,6 +77,7 @@ export const ProductItem = ({ item }) => {
             <Grid
                 size={{ xs: 4, sm: 3 }}
                 sx={{ my: "auto" }}
+                data-aos="fade-right"
             >
                 <Typography
                     variant="h3"
@@ -84,7 +85,6 @@ export const ProductItem = ({ item }) => {
                         fontFamily: "Italianno, cursive",
                         textAlign: "right"
                     }}
-                    data-aos="fade-right"
                 >                {" "}
                     {item.price} Ft
                 </Typography>
@@ -93,6 +93,7 @@ export const ProductItem = ({ item }) => {
             <Grid
                 size={{ xs: 8, sm: 4 }}
                 sx={{ my: "auto" }}
+                data-aos="fade-right"
             >
                 {token && <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 1 }}>
                     <DoDisturbOnIcon onClick={() => handleDecreaseQuantity(item.id)} fontSize="large" id="cart-icon" />

@@ -16,7 +16,6 @@ export default function Home() {
   const [tabValue, setTabValue] = useState('2');
   const { token } = useAuth();
 
-
   useEffect(() => {
     getImages();
   }, [])

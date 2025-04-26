@@ -12,18 +12,20 @@ const CartItem = ({ item }) => {
     }
 
     return (
-        <Box key={item.name} sx={{ my: 3, display: 'flex', justifyContent: "space-between" }} data-aos="fade-right">
+        <Box key={item.name} sx={{ my: 3, display: 'flex', justifyContent: "space-between" }} >
             <div>
                 <Typography
                     variant="h3"
                     sx={{
                         fontFamily: "Italianno, cursive",
                     }}
+                    data-aos="fade-right"
                 >
                     {item.name}
                 </Typography>
             </div>
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }} data-aos="fade-left"
+            >
                 <Typography
                     variant="h3"
                     sx={{
@@ -40,11 +42,10 @@ const CartItem = ({ item }) => {
                 >
                     {formatPrice(item.quantity * item.price)} Ft
                 </Typography>
-                <IconButton aria-label="delete" onClick={() => handleRemoveItemFromCart(item.cartItem_id)}>
+                <IconButton onClick={() => handleRemoveItemFromCart(item.cartItem_id)}>
                     <DeleteIcon />
                 </IconButton>
             </Box>
-
         </Box>
     )
 }
